@@ -16,7 +16,7 @@ const isTouchingCoins = (square, index, timer, time) => {
                     gameInstance.SendMessage("Player", "PlayerHandsLL");
                     break;
                 default:
-                    console.log('Index inexistente')
+                    //console.log('Index inexistente')
             }
         } else{
             switch(index){
@@ -39,7 +39,7 @@ const isTouchingCoins = (square, index, timer, time) => {
         }
             //gameInstance.SendMessage("Player", "PlayerHandsJS", `L${index+1}`);
         //else gameInstance.SendMessage("Player", "PlayerInclination", `L${index+1}`);
-        console.log(`Testando colisão esquerda: ${index+1}`);
+        //console.log(`Testando colisão esquerda: ${index+1}`);
         //gameInstance.SendMessage("Player", "PlayerHandsJS", `L${index+1}`)
     } else {
         if(unityLevel == undefined || unityLevel == 2 || unityLevel == 4){
@@ -57,7 +57,7 @@ const isTouchingCoins = (square, index, timer, time) => {
                     gameInstance.SendMessage("Player", "PlayerHandsRL");
                     break;
                 default:
-                    console.log('Index inválido');
+                    //console.log('Index inválido');
             }
         } else{
             switch(index){
@@ -80,7 +80,7 @@ const isTouchingCoins = (square, index, timer, time) => {
         }
             //gameInstance.SendMessage("Player", "PlayerHandsJS", `R${(index-5) + 1}`);
         //else gameInstance.SendMessage("Player", "PlayerInclination", `R${(index-5) + 1}`);
-        console.log(`Testando colisão direita: ${(index-5)+1}`);
+        //console.log(`Testando colisão direita: ${(index-5)+1}`);
         //gameInstance.SendMessage("Player", "PlayerHandsJS", `R${(index-5) + 1}`);
     }
 
@@ -91,7 +91,7 @@ const isTouchingCoins = (square, index, timer, time) => {
 	// 	gameInstance.SendMessage("Player", "PlayerHandsJS", `R${(index-5) + 1}` )
 
 	timer.coin = square.visible = false;
-    //collisions++;
+    collisions++;
 	//coinSound.play();
     //    console.log(`Colisões: ${collisions}`);
 	resetCoinCollision(square, timer, time);	
