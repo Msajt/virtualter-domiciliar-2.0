@@ -27,11 +27,11 @@ let gameData = [];
     let updatingData = false;
 
 //! ===== L O G O U T     D E     U S U Á R I O =====
-async function Logout(){
+function Logout(){
     auth.signOut()
         .then(() => {
             console.log("Usuário deslogado");
-            window.location = "../views/login.view.html";
+            window.location = ".../../views/login/login.view.html";
         })
         .catch((err) => {
             console.log("Erro de logout");
@@ -39,7 +39,7 @@ async function Logout(){
 }
 
 //! ===== C O L E T A     D E     D A D O S     P R É V I O S =====
-async function GetUserData(userId){
+function GetUserData(userId){
     let previousUserData = database.ref().child('users').child(userId);
 
     previousUserData.get()
@@ -57,7 +57,7 @@ async function GetUserData(userId){
 }
 
 //! ===== U P D A T E    D O S     D A D O S     D O     U S U Á R I O =====
-async function UpdateUserData(userId){
+function UpdateUserData(userId){
 	//? Variáveis para atualizar
 	let updatedGamesPlayed = userData.gamesPlayed + 1;
 	let updatedTotalCoins = userData.totalCoins + gameData.reduce((n, {coins}) => n + coins, 0);
@@ -96,3 +96,15 @@ async function UpdateUserData(userId){
 			    console.log(`Houve um erro: ${error.message}`)
 		    });
 }
+
+//! Verificando se o usuário está logado
+auth.onAuthStateChanged((user) => {
+	if(user){
+		document.getElementById('game-email').innerHTML = user.email;
+		document.getElementById('game-logout').addEventListener ("click", Logout);
+		document.getElementById('game-userPage').addEventListener ("click", () => window.location = '../../views/user/user.view.html');
+	} else {
+		console.log('Usuário não logado');
+		window.location = '../../views/login/login.view.html';
+	}
+});

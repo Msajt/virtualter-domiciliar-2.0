@@ -24,7 +24,7 @@ let sliderValue = document.getElementById('sliderValue');
 let kneeInterval = Number(slider.value);
 
 //! Variáveis do unity
-let unityPoints, unityTime, unityCoins, unityLevel;
+let unityPoints, unityTime, unityCoins, unityLevel, unityEnergies;
 
 //! Variáveis para 'game controller'
 let levelComplete = {
@@ -48,6 +48,7 @@ function preload(){
 function setup(){
     //? Definição do canvas na tela
     let canvas = createCanvas(WIDTH, HEIGHT);
+    canvas.position(75, 175);
     
     //? Criação dos sprites
     squaresGroup = new Group();
@@ -62,7 +63,7 @@ function setup(){
 
     //? Botão de recalibrar altura do quadril
     calibrateButton = createButton(`Recalibrar quadril`);
-    calibrateButton.position(0, 390);
+    calibrateButton.position(75, 535);
     calibrateButton.mousePressed(recalibrate);
 }
 

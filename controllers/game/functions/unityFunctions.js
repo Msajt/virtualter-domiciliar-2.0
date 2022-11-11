@@ -17,3 +17,8 @@ function ReceiveCoinsNumberFromUnity(number) {
 function ReceiveLevelFromUnity(number) {
     unityLevel = number;
 }
+
+//! Retornando energias
+function ReceiveEnergiesFromUnity(number){
+    unityEnergies = number;
+}
