@@ -116,7 +116,8 @@ function Login(){
     signInWithEmailAndPassword(auth, userEmail, userPassword)
         .then((userCredential) => {
             //TODO Encaminhar para a página
-            window.location = '../game/game.view.html';
+            //window.location = '../game/game.view.html';
+            window.location = '../user/user.view.html';
         })
         .catch((error) => {
             const errorCode = error.code;
