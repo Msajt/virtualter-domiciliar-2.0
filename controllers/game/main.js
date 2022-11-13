@@ -25,7 +25,7 @@ let sliderValue = document.getElementById('sliderValue');
 let kneeInterval = Number(slider.value);
 
 //! Variáveis do unity
-let unityPoints, unityTime, unityCoins, unityLevel, unityEnergies;
+let unityPoints = 0, unityTime = 0, unityCoins = 0, unityLevel = 0, unityEnergies = 0;
 
 //! Variáveis para 'game controller'
 let levelComplete = {
@@ -47,6 +47,10 @@ function testWalk(){
 
 function preload(){
     video = createCapture(VIDEO);
+
+    auth.onAuthStateChanged((user) => {
+		if(user) GetUserData(user.uid);
+	});
 }
 
 function setup(){
@@ -99,5 +103,43 @@ function draw(){
             }
         }
     }
+}
+
+function ResetGame(){
+    const isGameComplete = levelComplete.l1 && levelComplete.l2 && levelComplete.l3 && 
+                           levelComplete.l4 && levelComplete.l5 && levelComplete.l6
+	if(isGameComplete){
+            levelComplete.l1 = 
+            levelComplete.l2 = 
+            levelComplete.l3 = 
+            levelComplete.l4 = 
+            levelComplete.l5 = 
+            levelComplete.l6 = 
+            false;
+		    console.log('Resetando dados para a coleta');
+	}
+}
+
+//! Coletando os dados de cada fase
+function GetLevelData(subtractNumber){
+	//? Como se trata de uma variável local dentro da função, o objeto sempre vai resetar
+	let levelData = {};
+
+	levelData['points'] = unityPoints - subtractNumber;
+	levelData['time'] = unityTime;
+	levelData['coins'] = unityCoins;
+	levelData['collisions'] = collisions;
+	levelData['precision'] = unityCoins/collisions;
+    levelData['energies'] = unityEnergies;
+
+	//? Inserindo no array global 'gameData' que contém os dados de todas as fases
+	gameData.push(levelData);
+	
+	//! TESTES DE SAÍDA
+	console.log(`=== Dados da Fase ${unityLevel} ===`);
+	console.log(levelData);
+	console.log(gameData);
+	console.log(`Dados da fase ${unityLevel} foram coletadas`);
+	console.log(userData);
 }
 
