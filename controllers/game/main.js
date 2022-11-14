@@ -36,6 +36,7 @@ let levelComplete = {
     l5 : false,
     l6 : false,
 }
+let isGameFinish = false;
 
 let collisions = 0;
 
@@ -50,6 +51,7 @@ function preload(){
 
     auth.onAuthStateChanged((user) => {
 		if(user) GetUserData(user.uid);
+        id = user.uid;
 	});
 }
 
@@ -127,10 +129,18 @@ function GetLevelData(subtractNumber){
 
 	levelData['points'] = unityPoints - subtractNumber;
 	levelData['time'] = unityTime;
-	levelData['coins'] = unityCoins;
+	//levelData['coins'] = unityCoins;
 	levelData['collisions'] = collisions;
-	levelData['precision'] = unityCoins/collisions;
-    levelData['energies'] = unityEnergies;
+	//levelData['precision'] = unityCoins/collisions;
+    if(unityLevel == 1 || unityLevel == 3 || unityLevel == 5) {
+        levelData['energies'] = unityEnergies;
+        //levelData['precision'] = unityEnergies/collisions;
+        levelData['coins'] = 0;
+    } else if(unityLevel == 2 || unityLevel == 4 || unityLevel == 6) {
+        levelData['energies'] = 0;
+        //levelData['precision'] = unityCoins/collisions;
+        levelData['coins'] = unityCoins;
+    }
 
 	//? Inserindo no array global 'gameData' que contém os dados de todas as fases
 	gameData.push(levelData);

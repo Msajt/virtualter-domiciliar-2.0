@@ -77,7 +77,6 @@ function GameStartState(){
 
     if(levelComplete.l1 == false && unityLevel == 1){
         ///TODO Pegar energia e pontuação das fases de andar
-        gameData = [];
         console.log("Fase 1 concluida");
         GetLevelData(0);
         levelComplete.l1 = true;
@@ -102,13 +101,22 @@ function GameStartState(){
         GetLevelData(gameData.reduce((n, {points}) => n + points, 0));
         levelComplete.l5 = true;
     }
-    else if(levelComplete.l6 == false && unityLevel == 6) {
+    else if(levelComplete.l6 == false && unityLevel == 6 && !isGameFinish) {
         console.log("Fase 6 concluida");
         GetLevelData(gameData.reduce((n, {points}) => n + points, 0));
         levelComplete.l6 = true;
+        isGameFinish = true;
+    }
+    else if(unityLevel == 7){
+        //gameData = [];
+        isGameFinish = false;
+        if(!updatingData){
+            updatingData = true;
+            //UpdateUserData(id);
+        }
     }
 
-    ResetGame();
+    //ResetGame();
     // if(levelComplete.l1 && levelComplete.l2 && levelComplete.l3 && 
     //     levelComplete.l4 && levelComplete.l5 && levelComplete.l6){
     //     ///TODO Jogo completo
