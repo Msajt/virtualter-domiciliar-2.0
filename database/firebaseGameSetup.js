@@ -26,6 +26,14 @@ let id;
     // Coleta de estados
     let gotUserData = false;
     let updatingData = false;
+let levelComplete = {
+    l1 : false,
+    l2 : false,
+    l3 : false,
+    l4 : false,
+    l5 : false,
+    l6 : false,
+}
 
 //! ===== L O G O U T     D E     U S U Á R I O =====
 function Logout(){
@@ -81,7 +89,7 @@ function UpdateUserData(userId){
 	
 	database.ref(`users/${userId}`)
             .update(updatedUserData, (error) => {
-                let { l1, l2, l3, l4, l5, l6 } = levelComplete;
+                //let { l1, l2, l3, l4, l5, l6 } = levelComplete;
 
                 console.log(`Os dados foram atualizados com sucesso`);
                 //? Limpar array do gameData, userData e gotUserData = 'false'
@@ -89,7 +97,14 @@ function UpdateUserData(userId){
                 userData = {};
                 gotUserData = false;
                 //l1Completed = l2Completed = l3Completed = false;
-                l1 = l2 = l3 = l4 = l5 = l6 = false;
+                // l1 = false;
+                // l2 = false;
+                // l3 = false;
+                // l4 = false;
+                // l5 = false;
+                // l6 = false;
+                levelComplete.l1 = levelComplete.l2 = levelComplete.l3 = 
+                levelComplete.l4 = levelComplete.l5 = levelComplete.l6 = false;
                 updatingData = false;
                 GetUserData(userId);
                 console.log(gameData);

@@ -109,12 +109,25 @@ function GameStartState(){
     }
     else if(unityLevel == 7){
         //gameData = [];
-        isGameFinish = false;
-        if(!updatingData){
-            updatingData = true;
-            //UpdateUserData(id);
+        let isGameComplete = levelComplete.l1 && levelComplete.l2 && levelComplete.l3 && 
+                             levelComplete.l4 && levelComplete.l5 && levelComplete.l6
+        if(isGameComplete){
+            isGameFinish = false;
+            if(!updatingData){
+                updatingData = true;
+                UpdateUserData(id);
+            }
         }
     }
+
+    // if( levelComplete.l1 && levelComplete.l2 && levelComplete.l3 && 
+    //     levelComplete.l4 && levelComplete.l5 && levelComplete.l6    ){
+    //         //isGameFinish = false;
+    //         if(!updatingData){
+    //             updatingData = true;
+    //             UpdateUserData(id);
+    //         }
+    // }
 
     //ResetGame();
     // if(levelComplete.l1 && levelComplete.l2 && levelComplete.l3 && 

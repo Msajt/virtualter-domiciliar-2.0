@@ -28,14 +28,6 @@ let kneeInterval = Number(slider.value);
 let unityPoints = 0, unityTime = 0, unityCoins = 0, unityLevel = 0, unityEnergies = 0;
 
 //! Variáveis para 'game controller'
-let levelComplete = {
-    l1 : false,
-    l2 : false,
-    l3 : false,
-    l4 : false,
-    l5 : false,
-    l6 : false,
-}
 let isGameFinish = false;
 
 let collisions = 0;
