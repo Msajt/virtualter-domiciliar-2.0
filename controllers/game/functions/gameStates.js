@@ -13,6 +13,7 @@ function MainMenuState(){
 }
 
 function InstructionsState(){
+    button2.remove();
     //background(instructionsBackground);
     
     //? Botões do menu usando o 'mouse'
@@ -24,6 +25,8 @@ function InstructionsState(){
 }
 
 function GameStartState(){
+    button2.remove();
+
     let {   leftAnkle, rightAnkle,
             leftEar, rightEar,
             leftElbow, rightElbow,
@@ -120,6 +123,47 @@ function GameStartState(){
         }
     }
 
+    for(let i=0; i<10; i++) squaresGroup[i].debug = mouseIsPressed; 
+
+    switch(unityLevel){
+        case 0:
+            for(let i=0; i<10; i++){
+                if(i < 5) squaresGroup[i].position.x = 80;
+                    else  squaresGroup[i].position.x = WIDTH-80;
+                squaresGroup[i].setCollider('circle', 0, 0, 20);
+            }
+            break;
+        case 1:
+            for(let i=0; i<10; i++){
+                squaresGroup[i].setCollider('circle', 0, 0, 30);
+            }
+            break;
+        case 2:
+            for(let i=0; i<10; i++){
+                if(i < 5) squaresGroup[i].position.x = 80;
+                    else  squaresGroup[i].position.x = WIDTH-80;
+                squaresGroup[i].setCollider('circle', 0, 0, 10);
+            }
+            break;
+        case 3:
+            for(let i=0; i<10; i++){
+                squaresGroup[i].setCollider('circle', 0, 0, 20);
+            }
+            break;
+        case 4:
+            for(let i=0; i<10; i++){
+                if(i < 5) squaresGroup[i].position.x = 80;
+                    else  squaresGroup[i].position.x = WIDTH-80;
+                squaresGroup[i].setCollider('circle', 0, 0, 5);
+            }
+            break;
+        case 5:
+            for(let i=0; i<10; i++){
+                squaresGroup[i].setCollider('circle', 0, 0, 10);
+            }
+            break; 
+    }
+
     // if( levelComplete.l1 && levelComplete.l2 && levelComplete.l3 && 
     //     levelComplete.l4 && levelComplete.l5 && levelComplete.l6    ){
     //         //isGameFinish = false;
@@ -156,9 +200,10 @@ function GameStartState(){
     drawSprites(squaresGroup);
     drawSprite(rightHand);
     drawSprite(leftHand);
+    drawSprite(hipSprite);
     drawSprite(rightKneeSprite);
     drawSprite(leftKneeSprite);
-    drawSprite(defaultSpriteSize);
+    //drawSprite(defaultSpriteSize);
 }
 
 //! CONTROLE DO CANVAS COM O MOUSE

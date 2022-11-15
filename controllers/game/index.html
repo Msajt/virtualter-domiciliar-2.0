@@ -37,11 +37,11 @@
         <div class="footer">
             <!-- <div class="webgl-logo"></div> -->
             <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
-            <div class="title">Jogue em tela cheia</div>
+            <div class="title" style="margin-left: 500px">Jogue em tela cheia</div>
         </div>
     </div>
 
-    <div class="slidercontainer">
+    <div class="slidercontainer" style="margin-top: 570px; margin-left: 75px">
         <input type="range" min="0" max="100" value="35" id="kneeSlider">
         <span id="sliderValue">20</span>
     </div>
@@ -63,6 +63,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     <script src='../../database/firebaseGameSetup.js'></script>
     <!-- Script JS -->
+    <script src="./main.js"></script>
     <script src="./functions/gameStates.js"></script>
     <script src="./functions/webcam.js"></script>
     <script src="./functions/sprites.js"></script>
@@ -72,6 +73,5 @@
     <script src="./functions/userWalk.js"></script>
     <script src="./functions/timer.js"></script>
     <script src="./functions/unityFunctions.js"></script>
-    <script src="./main.js"></script>
 </body>
 </html>
