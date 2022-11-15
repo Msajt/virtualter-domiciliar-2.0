@@ -22,16 +22,25 @@ const database = firebase.database();
 // Variáveis para o p5 e firebase
 let userData = {}, levelData = {};
 let gameData = [];
+let id;
     // Coleta de estados
     let gotUserData = false;
     let updatingData = false;
+let levelComplete = {
+    l1 : false,
+    l2 : false,
+    l3 : false,
+    l4 : false,
+    l5 : false,
+    l6 : false,
+}
 
 //! ===== L O G O U T     D E     U S U Á R I O =====
 function Logout(){
     auth.signOut()
         .then(() => {
             console.log("Usuário deslogado");
-            window.location = ".../../views/login/login.view.html";
+            window.location = "../../views/login/login.view.html";
         })
         .catch((err) => {
             console.log("Erro de logout");
@@ -61,15 +70,17 @@ function UpdateUserData(userId){
 	//? Variáveis para atualizar
 	let updatedGamesPlayed = userData.gamesPlayed + 1;
 	let updatedTotalCoins = userData.totalCoins + gameData.reduce((n, {coins}) => n + coins, 0);
+    let updatedTotalEnergies = userData.totalEnergies + gameData.reduce((n, {energies}) => n + energies, 0);
 	let updatedTotalCollisions = userData.totalCollisions + gameData.reduce((n, {collisions}) => n + collisions, 0);
 	let updatedTotalPoints = userData.totalPoints + gameData.reduce((n, {points}) => n + points, 0);
-	let updatedTotalPrecision = (userData.totalCoins + gameData.reduce((n, {coins}) => n + coins, 0))/(userData.totalCollisions + gameData.reduce((n, {collisions}) => n + collisions, 0));
+	let updatedTotalPrecision = (updatedTotalCoins + updatedTotalEnergies)/(updatedTotalCollisions);
 	let updatedTotalTime = userData.totalTime + gameData.reduce((n, {time}) => n + time, 0);
 
 	const updatedUserData = {
 		//games: updatedGames,
 		gamesPlayed: updatedGamesPlayed,
 		totalCoins: updatedTotalCoins,
+        totalEnergies: updatedTotalEnergies,
 		totalCollisions: updatedTotalCollisions,
 		totalPoints: updatedTotalPoints,
 		totalPrecision: updatedTotalPrecision,
@@ -78,12 +89,22 @@ function UpdateUserData(userId){
 	
 	database.ref(`users/${userId}`)
             .update(updatedUserData, (error) => {
+                //let { l1, l2, l3, l4, l5, l6 } = levelComplete;
+
                 console.log(`Os dados foram atualizados com sucesso`);
                 //? Limpar array do gameData, userData e gotUserData = 'false'
                 gameData = [];
                 userData = {};
                 gotUserData = false;
-                l1Completed = l2Completed = l3Completed = false;
+                //l1Completed = l2Completed = l3Completed = false;
+                // l1 = false;
+                // l2 = false;
+                // l3 = false;
+                // l4 = false;
+                // l5 = false;
+                // l6 = false;
+                levelComplete.l1 = levelComplete.l2 = levelComplete.l3 = 
+                levelComplete.l4 = levelComplete.l5 = levelComplete.l6 = false;
                 updatingData = false;
                 GetUserData(userId);
                 console.log(gameData);

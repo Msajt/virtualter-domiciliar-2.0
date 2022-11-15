@@ -1,7 +1,7 @@
 //! Verifica qual moeda foi pega e dá um intervalo entre as colisões
 const isTouchingCoins = (square, index, timer, time) => {
     if(index < 5){
-        if(unityLevel == undefined || unityLevel == 2 || unityLevel == 4){
+        if(unityLevel == 0 || unityLevel == 2 || unityLevel == 4){
             switch(index){
                 case 0:
                     gameInstance.SendMessage("Player", "PlayerHandsLH");
@@ -42,7 +42,7 @@ const isTouchingCoins = (square, index, timer, time) => {
         //console.log(`Testando colisão esquerda: ${index+1}`);
         //gameInstance.SendMessage("Player", "PlayerHandsJS", `L${index+1}`)
     } else {
-        if(unityLevel == undefined || unityLevel == 2 || unityLevel == 4){
+        if(unityLevel == 0 || unityLevel == 2 || unityLevel == 4){
             switch(index){
                 case 5:
                     gameInstance.SendMessage("Player", "PlayerHandsRH");

@@ -79,6 +79,7 @@ function InsertData(userId, userEmail, userType){
         totalPoints: 0,
         totalTime: 0,
         totalCoins: 0,
+        totalEnergies: 0,
         totalCollisions: 0,
         totalPrecision: 0
     })
