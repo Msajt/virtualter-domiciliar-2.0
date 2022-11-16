@@ -27,16 +27,18 @@ function InstructionsState(){
 function GameStartState(){
     button2.remove();
 
-    let {   leftAnkle, rightAnkle,
-            leftEar, rightEar,
-            leftElbow, rightElbow,
-            leftEye, rightEye,
-            leftHip, rightHip,
-            leftKnee, rightKnee,
-            leftShoulder, rightShoulder,
-            leftWrist, rightWrist,
-            nose
-        } = pose;
+    //? Posição dos sprites do corpo na tela
+    //bodySpritesPositionAndSize(pose);
+    let { leftAnkle, rightAnkle,
+        leftEar, rightEar,
+        leftElbow, rightElbow,
+        leftEye, rightEye,
+        leftHip, rightHip,
+        leftKnee, rightKnee,
+        leftShoulder, rightShoulder,
+        leftWrist, rightWrist,
+        nose
+      } = pose;
 
     let hip = {
         x: WIDTH - (leftHip.x+rightHip.x)/2,
@@ -68,119 +70,10 @@ function GameStartState(){
 
     rightKneeSprite.width = leftKneeSprite.width = rightHand.width = leftHand.width = defaultSpriteSize.height;
     rightKneeSprite.height = leftKneeSprite.height = rightHand.height = leftHand.height = defaultSpriteSize.height;
-    
-    // if(keyWentDown('DOWN_ARROW')) { 
-    //     gameInstance.SendMessage("Player", "PlayerHandsRH");
-    //     console.log('Teste');
-    // }
-    // if(keyWentUp('UP_ARROW')) gameInstance.SendMessage("Player", "PlayerInclinationL1");
-    // if(keyWentUp('RIGHT_ARROW')) gameInstance.SendMessage("Player", "PlayerWalkJS");
 
-    if(keyWentDown('W') || keyWentDown('E')) collisions = 0;
-
-    if(levelComplete.l1 == false && unityLevel == 1){
-        ///TODO Pegar energia e pontuação das fases de andar
-        console.log("Fase 1 concluida");
-        GetLevelData(0);
-        levelComplete.l1 = true;
-    } 
-    else if(levelComplete.l2 == false && unityLevel == 2) {
-        console.log("Fase 2 concluida");
-        GetLevelData(gameData.reduce((n, {points}) => n + points, 0));
-        levelComplete.l2 = true;
-    }
-    else if(levelComplete.l3 == false && unityLevel == 3) {
-        console.log("Fase 3 concluida");
-        GetLevelData(gameData.reduce((n, {points}) => n + points, 0));
-        levelComplete.l3 = true;
-    }
-    else if(levelComplete.l4 == false && unityLevel == 4) {
-        console.log("Fase 4 concluida");
-        GetLevelData(gameData.reduce((n, {points}) => n + points, 0));
-        levelComplete.l4 = true;
-    }
-    else if(levelComplete.l5 == false && unityLevel == 5) {
-        console.log("Fase 5 concluida");
-        GetLevelData(gameData.reduce((n, {points}) => n + points, 0));
-        levelComplete.l5 = true;
-    }
-    else if(levelComplete.l6 == false && unityLevel == 6 && !isGameFinish) {
-        console.log("Fase 6 concluida");
-        GetLevelData(gameData.reduce((n, {points}) => n + points, 0));
-        levelComplete.l6 = true;
-        isGameFinish = true;
-    }
-    else if(unityLevel == 7){
-        //gameData = [];
-        let isGameComplete = levelComplete.l1 && levelComplete.l2 && levelComplete.l3 && 
-                             levelComplete.l4 && levelComplete.l5 && levelComplete.l6
-        if(isGameComplete){
-            isGameFinish = false;
-            if(!updatingData){
-                updatingData = true;
-                UpdateUserData(id);
-            }
-        }
-    }
-
-    for(let i=0; i<10; i++) squaresGroup[i].debug = mouseIsPressed; 
-
-    switch(unityLevel){
-        case 0:
-            for(let i=0; i<10; i++){
-                if(i < 5) squaresGroup[i].position.x = 80;
-                    else  squaresGroup[i].position.x = WIDTH-80;
-                squaresGroup[i].setCollider('circle', 0, 0, 20);
-            }
-            break;
-        case 1:
-            for(let i=0; i<10; i++){
-                squaresGroup[i].setCollider('circle', 0, 0, 30);
-            }
-            break;
-        case 2:
-            for(let i=0; i<10; i++){
-                if(i < 5) squaresGroup[i].position.x = 80;
-                    else  squaresGroup[i].position.x = WIDTH-80;
-                squaresGroup[i].setCollider('circle', 0, 0, 10);
-            }
-            break;
-        case 3:
-            for(let i=0; i<10; i++){
-                squaresGroup[i].setCollider('circle', 0, 0, 20);
-            }
-            break;
-        case 4:
-            for(let i=0; i<10; i++){
-                if(i < 5) squaresGroup[i].position.x = 80;
-                    else  squaresGroup[i].position.x = WIDTH-80;
-                squaresGroup[i].setCollider('circle', 0, 0, 5);
-            }
-            break;
-        case 5:
-            for(let i=0; i<10; i++){
-                squaresGroup[i].setCollider('circle', 0, 0, 10);
-            }
-            break; 
-    }
-
-    // if( levelComplete.l1 && levelComplete.l2 && levelComplete.l3 && 
-    //     levelComplete.l4 && levelComplete.l5 && levelComplete.l6    ){
-    //         //isGameFinish = false;
-    //         if(!updatingData){
-    //             updatingData = true;
-    //             UpdateUserData(id);
-    //         }
-    // }
-
-    //ResetGame();
-    // if(levelComplete.l1 && levelComplete.l2 && levelComplete.l3 && 
-    //     levelComplete.l4 && levelComplete.l5 && levelComplete.l6){
-    //     ///TODO Jogo completo
-    //     ///TODO Update dos dados do usuário
-    //     ///TODO Resetar variáveis
-    //     levelComplete.l1 = levelComplete.l2 = levelComplete.l3 = levelComplete.l4 = levelComplete.l5 = levelComplete.l6 = false;
-    // }
+    //? Level controller
+    levelDataController();
+    levelSpritesController();
 
     //? Posição das mãos na tela
     handsPosition(rightHand, leftHand);
