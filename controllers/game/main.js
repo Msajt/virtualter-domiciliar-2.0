@@ -18,6 +18,10 @@ let squaresGroup,
 let defaultSpriteSize;
 let button1, button2;
 
+//! Imagens do menu e instruções
+let menuBackground, instructionsBackground;
+let buttonInstructions, buttonPlay;
+
 //! Estado do temporizador de colisão
 let timer = {
     step: true,
@@ -42,6 +46,11 @@ let gameState = '';
 
 function preload(){
     video = createCapture(VIDEO);
+
+    menuBackground = loadImage('./sprites/virtualter-background.png');
+    instructionsBackground = loadImage('./sprites/instrucoes-background.png');
+    buttonInstructions = loadImage('./sprites/button-instrucoes.png');
+    buttonPlay = loadImage('./sprites/button-jogar.png');
 
     auth.onAuthStateChanged(
         (user) => {

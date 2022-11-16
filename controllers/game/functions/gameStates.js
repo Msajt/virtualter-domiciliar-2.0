@@ -1,11 +1,12 @@
 function MainMenuState(){
-    //background(menuBackground);
+    //? Background
+    background(menuBackground);
 					
     //? Botões do menu usando o 'mouse'
     SelectButton(button1, 'game-start', 240, 180);
-        //button1.addImage(buttonPlay);
+        button1.addImage(buttonPlay);
     SelectButton(button2, 'instructions', 240, 250);
-        //button2.addImage(buttonInstructions);
+        button2.addImage(buttonInstructions);
     
     //? Adicionando os sprites na tela
     drawSprite(button1);
@@ -14,11 +15,13 @@ function MainMenuState(){
 
 function InstructionsState(){
     button2.remove();
-    //background(instructionsBackground);
+
+    //? Background
+    background(instructionsBackground);
     
     //? Botões do menu usando o 'mouse'
     SelectButton(button1, 'game-start', 420, 325);
-        //button1.addImage(buttonPlay);
+        button1.addImage(buttonPlay);
     
     //? Adicionando os sprites na tela
     drawSprite(button1);
