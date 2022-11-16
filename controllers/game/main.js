@@ -1,9 +1,15 @@
 //! Variáveis constantes
 const WIDTH = 480, HEIGHT = 360;
+
 //! Funções do Unity
-let gameInstance = UnityLoader.instantiate("gameContainer", "Build/Virtualter - Versão Completa.json", {onProgress: UnityProgress});
+let gameInstance = UnityLoader.instantiate( "gameContainer", 
+                                            "Build/Virtualter - Versão Completa.json", 
+                                            { onProgress: UnityProgress }
+                                          );
+
 //! Inicialização do posenet e da câmera
 let video, poseNet, pose, videoIsOn = false;
+
 //! Sprites (quadrados, mãos, ...)
 let squaresGroup,
     rightHand, leftHand,
@@ -11,11 +17,13 @@ let squaresGroup,
     hipSprite;
 let defaultSpriteSize;
 let button1, button2;
+
 //! Estado do temporizador de colisão
 let timer = {
     step: true,
     coin: true,
 };
+
 //! Calibração da altura do quadril
 let calibrateButton, limitHipY = 0;
 
@@ -29,49 +37,33 @@ let unityPoints = 0, unityTime = 0, unityCoins = 0, unityLevel = 0, unityEnergie
 
 //! Variáveis para 'game controller'
 let isGameFinish = false;
-
 let collisions = 0;
-
 let gameState = '';
-
-function testWalk(){
-    gameInstance.SendMessage("Player", "PlayerWalkJS", "walk");
-}
 
 function preload(){
     video = createCapture(VIDEO);
 
-    auth.onAuthStateChanged((user) => {
-		if(user) GetUserData(user.uid);
-        id = user.uid;
-	});
+    auth.onAuthStateChanged(
+        (user) => {
+		    if(user) GetUserData(user.uid);
+            id = user.uid;
+	    }   
+    );
 }
 
 function setup(){
     //? Definição do canvas na tela
     let canvas = createCanvas(WIDTH, HEIGHT);
-    canvas.position(75, 175);
+        canvas.position(75, 175);
     
-    //? Criação dos sprites para botões
-    button1 = createSprite(0, 0, 100, 50);
-	button2 = createSprite(0, 0, 100, 50);
-
-    //? Criação dos sprites
-    squaresGroup = new Group();
-        createSquaresGroup();
-    rightHand       = createSprite(150, 150, 50, 50);
-    leftHand        = createSprite(150, 150, 50, 50);
-    rightKneeSprite = createSprite(150, 150, 30, 30);
-    leftKneeSprite  = createSprite(150, 150, 30, 30);
-    hipSprite       = createSprite(150, 150, 100, 30);
-    //leftHipSprite   = createSprite(150, 150, 30, 30);
-    defaultSpriteSize = createSprite(150, 150, 30, 30);
+    spritesSetup();
 
     //? Botão de recalibrar altura do quadril
     calibrateButton = createButton(`Recalibrar quadril`);
-    calibrateButton.position(75, 535);
-    calibrateButton.mousePressed(recalibrate);
+        calibrateButton.position(75, 535);
+        calibrateButton.mousePressed(recalibrate);
 
+    //? Iniciar o game state
     gameState = 'main-menu';
 }
 
@@ -97,51 +89,5 @@ function draw(){
             }
         }
     }
-}
-
-function ResetGame(){
-    const isGameComplete = levelComplete.l1 && levelComplete.l2 && levelComplete.l3 && 
-                           levelComplete.l4 && levelComplete.l5 && levelComplete.l6
-	if(isGameComplete){
-            levelComplete.l1 = 
-            levelComplete.l2 = 
-            levelComplete.l3 = 
-            levelComplete.l4 = 
-            levelComplete.l5 = 
-            levelComplete.l6 = 
-            false;
-		    console.log('Resetando dados para a coleta');
-	}
-}
-
-//! Coletando os dados de cada fase
-function GetLevelData(subtractNumber){
-	//? Como se trata de uma variável local dentro da função, o objeto sempre vai resetar
-	let levelData = {};
-
-	levelData['points'] = unityPoints - subtractNumber;
-	levelData['time'] = unityTime;
-	//levelData['coins'] = unityCoins;
-	levelData['collisions'] = collisions;
-	//levelData['precision'] = unityCoins/collisions;
-    if(unityLevel == 1 || unityLevel == 3 || unityLevel == 5) {
-        levelData['energies'] = unityEnergies;
-        //levelData['precision'] = unityEnergies/collisions;
-        levelData['coins'] = 0;
-    } else if(unityLevel == 2 || unityLevel == 4 || unityLevel == 6) {
-        levelData['energies'] = 0;
-        //levelData['precision'] = unityCoins/collisions;
-        levelData['coins'] = unityCoins;
-    }
-
-	//? Inserindo no array global 'gameData' que contém os dados de todas as fases
-	gameData.push(levelData);
-	
-	//! TESTES DE SAÍDA
-	console.log(`=== Dados da Fase ${unityLevel} ===`);
-	console.log(levelData);
-	console.log(gameData);
-	console.log(`Dados da fase ${unityLevel} foram coletadas`);
-	console.log(userData);
 }
 
