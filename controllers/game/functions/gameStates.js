@@ -76,7 +76,7 @@ function GameStartState(){
 
     //? Level controller
     levelDataController();
-    levelSpritesController();
+    levelSpritesController(hip, defaultSpriteSize);
 
     //? Posição das mãos na tela
     handsPosition(rightHand, leftHand);

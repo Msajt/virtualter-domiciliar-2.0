@@ -89,12 +89,39 @@ function levelDataController(){
     }
 }
 
-function levelSpritesController(){
-    for(let i=0; i<10; i++) squaresGroup[i].debug = mouseIsPressed; 
+function levelSpritesController(hip, head){
+    for(let i=0; i<10; i++) {
+        squaresGroup[i].debug = mouseIsPressed;
+        squaresGroup[i].height = squaresGroup[i].width = defaultSpriteSize.height*1.5;
+    }
+    let squaresInterval = (hip.y + hip.y/2) - (head.position.y - 50);
+    let j=0;
+    console.log(squaresInterval);
 
     switch(unityLevel){
         case 0:
-            levelSizeAndPosition(80, 20);
+            //squaresGroup[0].position.y = head.position.y;
+            for(let i=0; i<10; i++){
+                if(i<5){
+                    squaresGroup[0].position.y = head.position.y - (head.position.y/2);
+                    squaresGroup[1].position.y = head.position.y - (head.position.y/2) + squaresInterval/9;
+                    squaresGroup[2].position.y = head.position.y - (head.position.y/2) + (squaresInterval/9)*2.5;
+                    squaresGroup[3].position.y = head.position.y - (head.position.y/2) + (squaresInterval/9)*5;
+                    squaresGroup[4].position.y = head.position.y - (head.position.y/2) + (squaresInterval/9)*6;
+                    
+                    squaresGroup[i].position.x = hip.x - 100;
+                    //squaresGroup[i].position.y = (head.position.y) + (squaresInterval/5-i);
+                    // squaresGroup[1].position.y = head.position.y + (squaresInterval/4);
+                    // squaresGroup[2].position.y = head.position.y + (squaresInterval/3);
+                    // squaresGroup[3].position.y = head.position.y + (squaresInterval/2);
+                    // squaresGroup[4].position.y = head.position.y + (squaresInterval/1);
+                    //squaresGroup[i].position.x = hip.x - 150;
+                } //else{
+                //     squaresGroup[i].position.y = hip.y;
+                //     squaresGroup[i].position.x = WIDTH - 40; 
+                // }
+            }
+            // levelSizeAndPosition(80, 20);
             break;
         case 1:
             levelSizeAndPosition(40, 30);

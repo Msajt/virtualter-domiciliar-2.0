@@ -61,7 +61,7 @@ function GetUserData(userId){
                     .catch((err) => {
                         console.log(err);
                         console.log("Houve um erro ao coletar os dados anteriores");
-                        window.location = "../views/game/game.view.html";
+                        window.location = "../../views/game/game.view.html";
                     })
 }
 
