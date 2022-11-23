@@ -99,46 +99,46 @@ function levelSpritesController(hip, head){
 
     switch(unityLevel){
         case 0:
-            //squaresGroup[0].position.y = head.position.y;
-            for(let i=0; i<10; i++){
-                squaresGroup[0].position.y = squaresGroup[5].position.y = headInterval;
-                squaresGroup[1].position.y = squaresGroup[6].position.y = headInterval + (squaresInterval/9)*1.5;
-                squaresGroup[2].position.y = squaresGroup[7].position.y = headInterval + (squaresInterval/9)*2.8;
-                squaresGroup[3].position.y = squaresGroup[8].position.y = headInterval + (squaresInterval/9)*5;
-                squaresGroup[4].position.y = squaresGroup[9].position.y = headInterval + (squaresInterval/9)*6.5;
-                
-                if(i<5) squaresGroup[i].position.x = hip.x - hipSlider.value();
-                    else squaresGroup[i].position.x = hip.x + hipSlider.value();
-
-                squaresGroup[i].setCollider('circle', 0, 0, 20);
-                    
-            }
-            
             //console.log(hipSlider.value);
-            // levelSizeAndPosition(80, 20);
+            levelSizeAndPosition(20, squaresInterval, headInterval, hip, head);
             break;
         case 1:
-            levelSizeAndPosition(40, 30);
+            levelSizeAndPosition(30, squaresInterval, headInterval, hip, head);
             break;
         case 2:
-            levelSizeAndPosition(80, 10);
+            levelSizeAndPosition(10, squaresInterval, headInterval, hip, head);
             break;
         case 3:
-            levelSizeAndPosition(40, 20);
+            levelSizeAndPosition(20, squaresInterval, headInterval, hip, head);
             break;
         case 4:
-            levelSizeAndPosition(40, 5);
+            levelSizeAndPosition(5, squaresInterval, headInterval, hip, head);
             break;
         case 5:
-            levelSizeAndPosition(80, 10);
+            levelSizeAndPosition(10, squaresInterval, headInterval);
             break; 
     }
 }
 
-function levelSizeAndPosition(pos, size){
+function levelSizeAndPosition(size, sqInt, hInt, hip, head){
+    sqInt = (hip.y + hip.y/2) - (head.position.y - 50);
+    hInt = head.position.y - (head.position.y/2);
+
     for(let i=0; i<10; i++){
-        if(i < 5) squaresGroup[i].position.x = pos;
-            else  squaresGroup[i].position.x = WIDTH-pos;
-        squaresGroup[i].setCollider('circle', 0, 0, size);
-    }
+                squaresGroup[0].position.y = squaresGroup[5].position.y = hInt;
+                squaresGroup[1].position.y = squaresGroup[6].position.y = hInt + (sqInt/9)*1.5;
+                squaresGroup[2].position.y = squaresGroup[7].position.y = hInt + (sqInt/9)*2.8;
+                squaresGroup[3].position.y = squaresGroup[8].position.y = hInt + (sqInt/9)*5;
+                squaresGroup[4].position.y = squaresGroup[9].position.y = hInt + (sqInt/9)*6.5;
+                
+                if(i<5){
+                    if(i === 0) squaresGroup[i].position.x = hip.x + (hip.x/7) - hipSlider.value();
+                        else squaresGroup[i].position.x = hip.x - hipSlider.value();
+                } else{
+                    if(i === 5) squaresGroup[i].position.x = hip.x - (hip.x/7) + hipSlider.value();
+                        else squaresGroup[i].position.x = hip.x + hipSlider.value();
+                }
+
+                squaresGroup[i].setCollider('circle', 0, 0, size);     
+            }
 }

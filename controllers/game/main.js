@@ -77,7 +77,7 @@ function setup(){
     gameState = 'main-menu';
 
     //? Criação de slider
-    hipSlider = createSlider(50, 200, 130);
+    hipSlider = createSlider(50, 300, 130);
     hipSlider.position(75, 600);
     hipSlider.style('width', '200px');
 }
