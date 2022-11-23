@@ -35,6 +35,7 @@ let calibrateButton, limitHipY = 0;
 let slider = document.getElementById('kneeSlider');
 let sliderValue = document.getElementById('sliderValue');
 let kneeInterval = Number(slider.value);
+let hipSlider;
 
 //! Variáveis do unity
 let unityPoints = 0, unityTime = 0, unityCoins = 0, unityLevel = 0, unityEnergies = 0;
@@ -74,6 +75,11 @@ function setup(){
 
     //? Iniciar o game state
     gameState = 'main-menu';
+
+    //? Criação de slider
+    hipSlider = createSlider(50, 200, 130);
+    hipSlider.position(75, 600);
+    hipSlider.style('width', '200px');
 }
 
 function draw(){
