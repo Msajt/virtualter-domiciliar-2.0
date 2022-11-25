@@ -91,7 +91,7 @@ function levelDataController(){
 
 function levelSpritesController(hip, head){
     for(let i=0; i<10; i++) {
-        squaresGroup[i].debug = true;
+        //squaresGroup[i].debug = true;
         squaresGroup[i].height = squaresGroup[i].width = defaultSpriteSize.height*1.1;
     }
     let squaresInterval = (hip.y + hip.y/2) - (head.position.y - 50);
@@ -115,7 +115,7 @@ function levelSpritesController(hip, head){
             levelSizeAndPosition(5, squaresInterval, headInterval, hip, head);
             break;
         case 5:
-            levelSizeAndPosition(10, squaresInterval, headInterval);
+            levelSizeAndPosition(10, squaresInterval, headInterval, hip, head);
             break; 
     }
 }
