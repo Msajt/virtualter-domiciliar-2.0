@@ -40,6 +40,17 @@ function GetLevelData(subtractNumber){
 	console.log(userData);
 }
 
+function SendLevelTotal(data){
+    let coins = data.reduce((n, {coins}) => n + coins, 0);
+    let energies = data.reduce((n, {energies}) => n + energies, 0);
+    let collisions = data.reduce((n, {collisions}) => n + collisions, 0)
+    let points = data.reduce((n, {points}) => n + points, 0);
+    let precision = (coins + energies)/collisions;
+    let time = data.reduce((n, {time}) => n + time, 0);
+
+    gameInstance.SendMessage('EndlevelPanel', 'ReceiveGameData', `${coins},${energies},${collisions},${points},${precision},${time}`);
+}
+
 function levelDataController(){
     if(keyWentDown('W') || keyWentDown('E')) collisions = 0;
 
@@ -72,6 +83,7 @@ function levelDataController(){
     else if(levelComplete.l6 == false && unityLevel == 6 && !isGameFinish) {
         console.log("Fase 6 concluida");
         GetLevelData(gameData.reduce((n, {points}) => n + points, 0));
+        SendLevelTotal(gameData);
         levelComplete.l6 = true;
         isGameFinish = true;
     }
